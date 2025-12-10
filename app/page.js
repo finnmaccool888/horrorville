@@ -2,13 +2,13 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion'
+import Image from 'next/image'
 import {
   Ghost,
   Film,
   Coins,
   Gamepad2,
   ChevronDown,
-  Skull,
   Zap,
   Users,
   TrendingUp,
@@ -135,10 +135,10 @@ const CrystalSkull = () => {
       }}
       className="relative z-10 mb-8"
     >
-      <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 relative flex items-center justify-center">
+      <div className="w-72 h-72 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] relative flex items-center justify-center">
         {/* Outer glow rings */}
-        <div className="absolute inset-0 bg-purple-600 rounded-full blur-[100px] opacity-30 animate-pulse" />
-        <div className="absolute inset-[-20%] bg-red-900 rounded-full blur-[80px] opacity-20 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute inset-0 bg-purple-600 rounded-full blur-[100px] opacity-40 animate-pulse" />
+        <div className="absolute inset-[-20%] bg-red-900 rounded-full blur-[80px] opacity-25 animate-pulse" style={{ animationDelay: '1s' }} />
 
         {/* Inner glow */}
         <motion.div
@@ -154,26 +154,32 @@ const CrystalSkull = () => {
           className="absolute inset-[10%] bg-gradient-to-b from-purple-500/40 to-red-900/40 rounded-full blur-[40px]"
         />
 
-        {/* The Skull */}
-        <Skull
-          size={180}
-          className="text-gray-100 skull-glow relative z-10 md:w-[220px] md:h-[220px] lg:w-[260px] lg:h-[260px]"
-          strokeWidth={0.5}
-        />
-
-        {/* Eye glows */}
-        <motion.div
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute top-[38%] left-[32%] w-4 h-4 md:w-5 md:h-5 bg-red-500 rounded-full blur-sm"
-        />
-        <motion.div
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-          className="absolute top-[38%] right-[32%] w-4 h-4 md:w-5 md:h-5 bg-red-500 rounded-full blur-sm"
+        {/* The Crystal Skull Image */}
+        <Image
+          src="/crystal-skull.png"
+          alt="Crystal Skull"
+          width={400}
+          height={400}
+          className="skull-glow relative z-10 w-full h-full object-contain drop-shadow-[0_0_30px_rgba(157,78,221,0.5)]"
+          priority
         />
       </div>
     </motion.div>
+  )
+}
+
+// =============================================================================
+// SKULL ICON COMPONENT - Smaller version for icons throughout the page
+// =============================================================================
+const SkullIcon = ({ className = '', size = 24 }) => {
+  return (
+    <Image
+      src="/crystal-skull.png"
+      alt="Skull Icon"
+      width={size}
+      height={size}
+      className={`object-contain ${className}`}
+    />
   )
 }
 
@@ -711,7 +717,7 @@ export default function Horrorville() {
             className="absolute inset-0 blur-[100px] bg-gradient-to-r from-red-600/30 to-purple-600/30 -z-10"
           />
 
-          <Ghost className="w-16 h-16 md:w-20 md:h-20 text-red-500 mx-auto mb-8 opacity-60" />
+          <SkullIcon size={80} className="mx-auto mb-8 opacity-80 drop-shadow-[0_0_20px_rgba(157,78,221,0.4)]" />
 
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-horror mb-6 horror-shadow">Join The Horrorverse</h2>
 
@@ -749,7 +755,7 @@ export default function Horrorville() {
               <MessageCircle className="w-6 h-6" />
             </motion.a>
             <motion.a whileHover={{ scale: 1.1, y: -2 }} href="#" className="text-gray-500 hover:text-white transition-colors">
-              <Ghost className="w-6 h-6" />
+              <SkullIcon size={24} className="opacity-70 hover:opacity-100 transition-opacity" />
             </motion.a>
           </div>
         </motion.div>
