@@ -1,0 +1,291 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blood-red: #8a0000;
+  --blood-dark: #5c0000;
+  --neon-purple: #9d4edd;
+  --cryptic-purple: #7b2cbf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar - Blood Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--blood-red) 0%, var(--blood-dark) 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #a00000 0%, var(--blood-red) 100%);
+}
+
+/* Font Classes */
+.font-horror {
+  font-family: var(--font-creepster), 'Creepster', cursive;
+  letter-spacing: 0.05em;
+}
+
+.font-sans {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* Fog Animation */
+@keyframes fog-drift {
+  0% {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+}
+
+.fog-layer {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(100, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+  animation: fog-drift 25s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.fog-layer-2 {
+  animation-delay: -12s;
+  animation-duration: 30s;
+  background: radial-gradient(ellipse at center, rgba(80, 0, 80, 0.1) 0%, rgba(0, 0, 0, 0) 60%);
+}
+
+/* Blood Drip Effect */
+@keyframes blood-drip {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  50.1% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.blood-drip {
+  animation: blood-drip 4s ease-in-out infinite;
+}
+
+/* Glitch Text Effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch-text:hover {
+  animation: glitch 0.3s ease-in-out infinite;
+}
+
+/* Skull Glow Pulse */
+@keyframes skull-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(157, 78, 221, 0.5)) drop-shadow(0 0 40px rgba(138, 0, 0, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(157, 78, 221, 0.8)) drop-shadow(0 0 60px rgba(138, 0, 0, 0.5));
+  }
+}
+
+.skull-glow {
+  animation: skull-glow 3s ease-in-out infinite;
+}
+
+/* Card Hover Effects */
+.horror-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.horror-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(138, 0, 0, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.horror-card:hover::before {
+  left: 100%;
+}
+
+.horror-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(138, 0, 0, 0.3);
+}
+
+/* Button Glow */
+.btn-horror {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-horror::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, var(--blood-red), var(--neon-purple), var(--blood-red));
+  background-size: 200% 200%;
+  z-index: -1;
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-horror:hover::after {
+  opacity: 1;
+  animation: gradient-shift 2s linear infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Vignette Effect */
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* Text Shadow for Horror Headers */
+.horror-shadow {
+  text-shadow:
+    0 0 10px rgba(138, 0, 0, 0.5),
+    0 0 20px rgba(138, 0, 0, 0.3),
+    0 0 30px rgba(138, 0, 0, 0.2);
+}
+
+/* Pulse Ring Animation */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--blood-red);
+  border-radius: 50%;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Selection Color */
+::selection {
+  background: var(--blood-red);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--blood-red);
+  color: white;
+}
+
+/* Responsive Typography */
+@layer utilities {
+  .text-responsive-xl {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
+  }
+
+  .text-responsive-lg {
+    @apply text-3xl sm:text-4xl md:text-5xl;
+  }
+
+  .text-responsive-md {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+}
